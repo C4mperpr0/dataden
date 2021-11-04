@@ -1,0 +1,20 @@
+{
+    "default": {
+        "light": "#82AFFF",
+        "dark": "#689AFF",
+        "accent": "#4F81FF",
+        "font": "#000000",
+        "href": "#0000FF",
+        "input": "#FFFFFF",
+		"font_error": "#FF0000"
+    },
+    "debug": {
+        "light": "#FF0000",
+        "dark": "#FF0000",
+        "accent": "#FF0000",
+        "font": "#FF0000",
+        "href": "#FF0000",
+        "input": "#FF0000",
+		"font_error": "#FF0000"
+    }
+}

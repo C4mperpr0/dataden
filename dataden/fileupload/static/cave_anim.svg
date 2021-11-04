@@ -1,0 +1,97 @@
+<svg width="800" height="600" xmlns="http://www.w3.org/2000/svg">
+	<g id="cavebg">
+		<rect id="cavebg" rx="5" height="177.30874" width="175.1614" y="253.69136" x="271.53671" stroke-width="0" stroke="#000000" fill="#060a12"/>
+		<line id="caveshading_0" class="caveshading" fill="none" stroke="#0c111c" stroke-width="99" x1="392.56965" y1="247.67802" x2="391.02166" y2="429.72136" stroke-dasharray="5,5"/>
+		<line id="caveshading_1" class="caveshading" fill="none" stroke="#0c111c" stroke-width="99" x1="314.24148" y1="247.05883" x2="312.69349" y2="429.10217" stroke-dasharray="5,5"/>
+	</g>
+	<g id="dripstones">
+		<path id="dripstone_0" fill="#ffffff" stroke="#ffffff" stroke-width="8" opacity="NaN" d="m292.20164,295.41268c-3.66972,79.81649 8.71559,-2.29358 8.25698,-2.75221"/>
+		<path id="dripstone_1" fill="#ffffff" stroke="#ffffff" stroke-width="9" opacity="NaN" d="m308.40155,272.01799c-1.12821,140.10135 -0.86359,0.83033 -9.77777,7.45644"/>
+		<path id="dripstone_2" fill="#ffffff" stroke="#ffffff" stroke-width="11" d="m310.09155,268.80718c38.99081,111.92657 24.77084,21.10107 54.12853,-27.06413c29.35769,-48.1652 -93.11934,-84.86244 -54.12853,27.06413z"/>
+		<path id="dripstone_3" fill="#ffffff" stroke="#ffffff" stroke-width="11" d="m361.46768,256.42186c7.33945,61.92659 7.79816,-1.37615 7.33955,-1.83478c0.45861,0.45864 -14.679,-60.09181 -7.33955,1.83478z"/>
+		<path id="dripstone_4" fill="#ffffff" stroke="#ffffff" stroke-width="5" d="m376.77713,259.93111c-5.50459,96.78896 4.58715,1.83486 4.12854,1.37622c0.45861,0.45864 1.37604,-98.16519 -4.12854,-1.37622z" transform="rotate(-2, 378.196, 260.391)"/>
+		<path id="dripstone_5" fill="#ffffff" stroke="#ffffff" stroke-width="11" d="m388.41686,264.38051c-16.97247,139.4495 13.7501,10.56182 13.29149,10.10318c0.45861,0.45864 3.68098,-149.55268 -13.29149,-10.10318z" transform="rotate(-10, 392.774, 267.108)"/>
+		<path id="dripstone_6" fill="#ffffff" stroke="#ffffff" stroke-width="8" opacity="NaN" d="m408.30071,289.53032c-3.66972,79.81649 8.71559,-2.29358 8.25698,-2.75221"/>
+	</g>
+	<g id="mointain">
+		<path id="mountain" fill="#000000" stroke="#000000" stroke-width="21" opacity="NaN" d="m149.95731,419.88095c19.06786,-0.14119 28.43234,-302.36695 47.5002,-302.50814c14.68926,-0.14124 67.18157,299.94358 81.87082,299.80234"/>
+		<path class="mountain_color_change" id="mountain_1" fill="#1e3463" stroke="#000000" stroke-width="21" opacity="NaN" d="m209.4026,268.16176c22.03396,0.42379 61.40112,-218.75643 112.63112,-228.33128c51.23,-9.57485 77.42862,198.84637 80.87018,202.02135c1.72078,1.58749 -50.11723,-5.51083 -90.49533,23.64457c-40.3781,29.15539 -42.10703,149.50182 -37.35272,150.45587"/>
+		<path class="mountain_color_change" id="mountain_2" fill="#466bb8" stroke="#000000" stroke-width="21" opacity="NaN" d="m334.0606,253.95474c20.76278,0.00006 42.2103,-168.36163 62.97308,-168.36158c9.03954,-0.07062 55.5001,134.18578 57.51607,141.77511c2.01597,7.58934 -2.50292,52.51434 6.53663,52.44371"/>
+		<path class="mountain_color_change" id="mountain_3" fill="#82AFFF" stroke="#000000" stroke-width="21" opacity="NaN" d="m556.82997,419.73687c-19.20895,0.00006 -29.57045,-229.90653 -48.77941,-229.90648c-10.80508,-0.14124 -101.03992,96.58958 -93.97514,96.66164c7.06479,0.07206 46.00961,125.61799 26.98969,127.11972"/>
+		<rect id="bottom" rx="5" height="23.41184" width="418.21766" y="407.58816" x="144.00001" stroke-width="0" stroke="#000000" fill="#000000"/>
+		<path id="caveEntry" fill="none" stroke="#000000" stroke-width="21" d="m279.44726,416.22845c-46.6377,-77.1471 104.90158,-159.82522 107.50989,-155.81078c2.60832,4.01444 78.9051,141.9535 74.50072,148.74324c-4.40438,6.78974 -133.87061,87.83036 -181.75119,7.57668l-0.25942,-0.50914z" transform="rotate(117, 366.092, 356.117)"/>
+	</g>
+	<g id="bintext">
+		<text class="line0 row0" x="300" y="300">0110</text><text class="line0 row1" x="300" y="300">0101</text><text class="line0 row2" x="300" y="300">0110</text><text class="line0 row3" x="300" y="300">0010</text><text class="line0 row4" x="300" y="300">0001</text>
+		<text class="line1 row0" x="300" y="320">1101</text><text class="line1 row1" x="300" y="320">1100</text><text class="line1 row2" x="300" y="320">1100</text><text class="line1 row3" x="300" y="320">1100</text><text class="line1 row4" x="300" y="320">1011</text>
+		<text class="line2 row0" x="300" y="340">1000</text><text class="line2 row1" x="300" y="340">1000</text><text class="line2 row2" x="300" y="340">1010</text><text class="line2 row3" x="300" y="340">1110</text><text class="line2 row4" x="300" y="340">1101</text>
+		<text class="line3 row0" x="300" y="360">1011</text><text class="line3 row1" x="300" y="360">1111</text><text class="line3 row2" x="300" y="360">1111</text><text class="line3 row3" x="300" y="360">0010</text><text class="line3 row4" x="300" y="360">0110</text>
+		<text class="line4 row0" x="300" y="380">0110</text><text class="line4 row1" x="300" y="380">1011</text><text class="line4 row2" x="300" y="380">0110</text><text class="line4 row3" x="300" y="380">1101</text><text class="line4 row4" x="300" y="380">0100</text>
+		<text class="line5 row0" x="300" y="400">1100</text><text class="line5 row1" x="300" y="400">0110</text><text class="line5 row2" x="300" y="400">1111</text><text class="line5 row3" x="300" y="400">0011</text><text class="line5 row4" x="300" y="400">1101</text>
+	</g>
+	<style>
+	@keyframes textmove {
+		0% { fill: rgba(42, 112, 31, 0); transform: translateX(0); }
+		10% { fill: rgba(42, 112, 31, 1); }
+		90% { fill: rgba(110, 201, 110, 1); }
+		100% { fill: rgba(110, 201, 100, 0); transform: translateX(260px); }
+	}
+	#bintext text{
+		user-select: none;
+		fill: rgba(69, 166, 55, 0);
+		font-family: monospace;
+		font-weight: bold;
+		font-size: 18px;
+		animation-name: textmove;
+		animation-timing-function: linear;
+		animation-iteration-count: infinite;
+	}
+	.row1 {	animation-delay: 1s; }
+	.row2 {	animation-delay: 2s; }
+	.row3 {	animation-delay: 3s; }
+	.row4 {	animation-delay: 4s; }
+	.line0 { animation-duration: 5.2s; }
+	.line1 { animation-duration: 5s; }
+	.line2 { animation-duration: 5.4s; }
+	.line3 { animation-duration: 5.6s; }
+	.line4 { animation-duration: 4.8s; }
+	.line5 { animation-duration: 5.8s; }
+
+
+	@keyframes dripstone_anim {
+		from { transform: translateY(-1%); }
+		to { transform: translateY(1%); }
+	}
+	#dripstones path {
+		transform: translateY(-1%);
+		fill: #171d2b;
+		stroke: #171d2b;
+		animation-name: dripstone_anim;
+		animation-duration: 3s;
+		animation-timing-function: ease-in-out;
+		animation-iteration-count: infinite;
+		animation-direction: alternate;
+	}
+	#dripstone_0 { animation-delay: -3s; }
+	#dripstone_1 { animation-delay: 0s; }
+	#dripstone_2 { animation-delay: -.5s; }
+	#dripstone_3 { animation-delay: -2.5s; }
+	#dripstone_4 { animation-delay: -1.7s; }
+	#dripstone_5 { animation-delay: -2.2s; }
+	#dripstone_6 { animation-delay: -1.5s; }
+
+	@keyframes  mountain_anim {
+		from { filter: brightness(120%); }
+		to { filter: brightness(100%); }
+	}
+	.mountain_color_change {
+		animation-name: mountain_anim;
+		animation-duration: 2s;
+		animation-iteration-count: infinite;
+		animation-direction: alternate;
+	}
+	#mountain_1 { animation-delay: -1.6s; }
+	#mountain_2 { animation-delay: -1.3s; }
+	#mountain_3 { animation-delay: -1s; }
+	</style>
+</svg>

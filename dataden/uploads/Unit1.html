@@ -1,0 +1,78 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta name="generator" content="Lazarus SynEdit Html Exporter">
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<title>Unit1</title>
+</head>
+<body text="black" bgcolor="#232729"><pre><code><font  size=3 face="Courier New"><font color="navy"><b>unit </b></font>Unit1;
+
+<font color="teal">{$mode objfpc}{$H+}
+
+</font><font color="navy"><b>interface
+
+uses
+  </b></font>Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, StdCtrls;
+
+<font color="navy"><b>type
+
+  </b></font><font color="green"><i>{ TForm1 }
+
+  </i></font>TForm1 = <font color="navy"><b>class</b></font>(TForm)
+    Button1: TButton;
+    Edit1: TEdit;
+    Edit2: TEdit;
+    Label1: TLabel;
+    Label2: TLabel;
+    Label3: TLabel;
+    <font color="navy"><b>procedure </b></font>Button1Click(Sender: TObject);
+  <font color="navy"><b>private
+
+  public
+
+  end</b></font>;
+
+<font color="navy"><b>var
+  </b></font>Form1: TForm1;
+
+<font color="navy"><b>implementation
+
+</b></font><font color="teal">{$R *.lfm}
+
+</font><font color="green"><i>{ TForm1 }
+
+</i></font><font color="navy"><b>procedure </b></font>TForm1.Button1Click(Sender: TObject);
+<font color="navy"><b>var
+  </b></font>zahl1, zahl2, ergebnis, i: integer;
+  ergebnis_negativ: boolean;
+<font color="navy"><b>begin
+  </b></font>ergebnis := <font color="blue">0</font>;
+  zahl1 := StrToInt(Edit1.Text);
+  zahl2 := StrToInt(Edit2.Text);
+
+  <font color="navy"><b>if </b></font>(zahl2 &lt; <font color="blue">0</font>) <font color="navy"><b>then
+  begin
+    </b></font>ergebnis_negativ := true;
+    zahl2 := -zahl2
+  <font color="navy"><b>end
+  else
+    </b></font>ergebnis_negativ := false;
+
+  <font color="navy"><b>for </b></font>i := <font color="blue">1 </font><font color="navy"><b>to </b></font>zahl2 <font color="navy"><b>do
+  begin
+    </b></font>ergebnis := ergebnis + zahl1;
+  <font color="navy"><b>end</b></font>;
+
+  <font color="navy"><b>if </b></font>(ergebnis_negativ) <font color="navy"><b>then
+    </b></font>Label3.Caption := <font color="blue">'Ergebnis: ' </font>+ IntToStr(-ergebnis)
+  <font color="navy"><b>else
+    </b></font>Label3.Caption := <font color="blue">'Ergebnis: ' </font>+ IntToStr(ergebnis);
+<font color="navy"><b>end</b></font>;
+
+<font color="navy"><b>end</b></font>.
+
+</font>
+</code></pre>
+</body>
+</html>

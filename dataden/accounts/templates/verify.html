@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset='utf-8'>
+		<title>Verify</title>
+		
+		<style>
+			html, body {
+				font-family: 'Trebuchet MS', sans-serif;
+				color: {{font}};
+				height: 100%;
+				margin: 0;
+				user-select: none;				
+			}
+			body {
+				font-family: 'Trebuchet MS', sans-serif;
+				background-color: {{dark}};
+				display: flex;
+				justify-content: center;
+				align-items: center;
+			}
+			form {
+				width: 40%;
+				min-width: 300px;
+				display: flex;
+				justify-content: center;
+				flex-direction: column;
+			}
+			#loginform {
+				background-color: {{light}};
+				border: 5px solid {{accent}};
+				box-sizing: border-box;
+				border-bottom-style: none;
+				border-radius: 0.5vh;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				flex-direction: column;
+				
+			}
+			input[type=text], input[type=password] {
+				background-color: {{input}};
+				border: 3px solid {{accent}};
+				box-sizing: border-box;
+				border-top-style: none;
+				border-radius: 0.5vh;
+			}
+			#submitBtn {
+				width: 90%;
+				padding: 10px;
+				background-color: {{input}};
+				color: {{font}};
+				cursor: pointer;
+				margin-top: 10%;
+				border: 3px solid {{light}};
+				border-bottom-style: none;
+				box-sizing: border-box;
+				border-radius: 0.5vw;
+				font-size: 18px;
+				transition: 0.5s;
+				text-align: center;
+			}
+			#submitBtn:hover {
+				border-bottom-style: none;
+				border: 3px solid {{accent}};
+				border-bottom-style: none;
+			}
+			input, label {
+				width: 100%;
+				padding: 10px;
+			}
+			.errors {
+				display: none;
+				color: red;
+				font-family: monospace;
+				font-size: 20px;
+			}
+			@keyframes errorAnim {
+				10%, 90% {
+					transform: translate3d(-2px, 0, 0);
+				}
+				20%, 80% {
+					transform: translate3d(4px, 0, 0);
+				}
+				30%, 50%, 70% {
+					transform: translate3d(-8px, 0, 0);
+				}
+				40%, 60% {
+					transform: translate3d(8px, 0, 0);
+				}
+				20%, 60% {
+					background-color: {{font_error}};
+				}
+				40%, 80% {
+					background-color: {{input}};
+				}
+			}
+			.errorAnimate {
+				animation-name: errorAnim;
+				animation-duration: 1s;
+			}	
+			.outerdivs {
+				display: flex;
+				justify-content: center;
+				flex-direction: column;
+				width: 90%;
+			}	
+			#infotext {
+				padding-bottom: 20px;
+				font-size: 18px;
+			}
+			#loadingOverlay {
+				display: none;
+				position: fixed;
+				width: 100%;
+				height: 100%;
+				top: 0;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				z-index: 3;
+				background-color : rgba(0, 0, 0, 0.65);
+			}
+			#loadingOverlay img {
+				width: 50%;
+				height: auto;
+			}
+			#loadingOverlay_body {
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				height: 100%;
+				width: 100%;
+			}	
+		</style>
+		
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+		<script>
+		function submit() {
+			document.getElementById("loadingOverlay").style.display = "block";
+			$.ajax({
+				data : {
+					mail : $('#inputMail').val(),
+					password : $('#inputPassword').val()
+				},
+				type : 'POST',
+				success : function(data) {
+
+					if (data.error) {
+						document.getElementById("loadingOverlay").style.display = "none";
+						document.getElementById("err").setAttribute("style", "display: flex;");
+
+						var inputClone = document.getElementById("inputPassword"); var clone = inputClone.cloneNode(true);
+						inputClone.parentNode.replaceChild(clone, inputClone);
+						document.getElementById("inputPassword").setAttribute("class", "errorAnimate");
+
+						var inputClone = document.getElementById("inputMail"); var clone = inputClone.cloneNode(true);
+						inputClone.parentNode.replaceChild(clone, inputClone);
+						document.getElementById("inputMail").setAttribute("class", "errorAnimate");
+						document.getElementById("inputMail").focus();
+					}
+					else {
+						window.location.replace("/");
+					}
+				}
+			});
+			return false;
+		}
+		</script>
+		
+		</head>
+	<body>
+		<div id="loadingOverlay">
+			<div id="loadingOverlay_body">
+				<img src="{{url_for('static', filename='cave_anim.svg')}}"/>
+			</div>
+		</div>
+		<form method="POST" >
+			<div id="loginform">
+				<div class="outerdivs">
+					<label id="infotext" for="inputEmail">Login to verify and activate your account!</label>
+				</div>
+				<div class="outerdivs">
+					<label id="err", class="errors", style="padding-top: 0;", for="inputMail">Your mail address or your password are not correct!</label>
+					<label for="inputMail">Email</label>
+				</div>
+				<div class="outerdivs">
+					<input type="text", name="mail", id="inputMail", required />
+					<label for="inputPassword">Password</label>
+					<input type="password", name="password", id="inputPassword", required />
+				</div>
+				<div id="submitBtn" onclick="submit()">Login</div>
+			</div>
+		</form>
+		
+	</body>
+</html>

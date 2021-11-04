@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset='utf-8'>
+		<title>Chat</title>
+		
+		<style>
+			html, body {
+				font-family: 'Trebuchet MS', sans-serif;
+				color: {{font}};
+				height: 100%;
+				margin: 0;
+				user-select: none;				
+			}
+			body {
+				font-family: 'Trebuchet MS', sans-serif;
+				background-color: {{dark}};
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				min-width: 600px;
+				min-height: 450px;
+			}
+			#chat {
+				width: 100%;
+				min-width: 300px;
+				height: 100%;
+				min-height: 100px;
+				display: flex;
+				flex-flow: column nowrap;
+			}
+			#messages {
+				background-color: lightblue;
+				display: flex;
+				flex-flow: column nowrap;
+				width: 100%;
+				height: 100%;
+				overflow: auto;
+				-ms-overflow-style: none;
+				scrollbar-width: none;
+			}
+			@keyframes newMsgNotificationAnim {
+				0% {
+					height: 0px;
+				}
+				15% {
+					height: 50px;
+					font-size: 0px;
+				}
+				30% {
+					font-size: 24px;
+				}
+				33% {
+					font-size: 22px;
+				}
+				100% {
+					font-size: 22px;
+					height: 50px;
+				}
+			}
+			.newMsgNotificationAnim-play {
+				animation: newMsgNotificationAnim 2s ease none 2 alternate;
+			}
+			#newMsgNotification {
+				width: 100%;
+				height: 0;
+				font-size: 0px;
+				background-color: black;
+				color: #a0ffa0;
+				text-align: center;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+			}
+			#messages::-webkit-scrollbar {
+			  display: none;
+			}
+			.msg {
+				user-select: text;
+				word-wrap: break-word;
+				max-width: 60%;
+				margin: 15px;
+				padding: 10px;
+				border-radius: 5px;
+			}
+			.msg_own {
+				display: flex;
+				justify-content: flex-end;
+				width: 100%;
+				text-align: right;	
+			}
+			.msg_own div {
+				background-color: #7070ff;
+			}
+			.msg_not_own {
+				display: flex;
+				justify-content: flex-start;
+				width: 100%;
+				text-align: left;
+			}
+			.msg_not_own div {
+				background-color: #70e070;
+			}
+			#messageInput {
+				width: 100%;
+				height: 40px;
+				border: 2px solid green;
+				box-sizing: border-box;
+			}
+			#sendButton {
+				background-color: #90b0ff;
+				width: 16%;
+				min-width: 60px;
+				height: 40px;
+				border: 2px solid green;
+				box-sizing: border-box;
+				display: flex;
+				justify-content: center;
+				align-items: flex-end;
+				text-align: center;
+			}
+			#scrollDownButton {
+				background-color: #fabc11;
+				width: 10%;
+				min-width: 24px;
+				height: 40px;
+				border: 2px solid green;
+				box-sizing: border-box;
+				display: none;
+				justify-content: center;
+				align-items: flex-end;
+				text-align: center;
+			}
+			
+			#listchats {
+				background-color: #4a85e0;
+				height: 100%;
+				min-width: 300px;
+				overflow: auto;
+				-ms-overflow-style: none;
+				scrollbar-width: none;
+			}
+			#listchats::-webkit-scrollbar {
+			  display: none;
+			}
+			.chatlistobject {
+				width: 100%;
+				min-width: 300px;
+				display: flex;
+				flex-flow: row nowrap;
+				align-content: space-around;
+				padding-bottom: 10px;
+			}
+			.chatlistobject .info {
+				background-color: #3e75c9;
+				width: 80%;
+				min-width: 240px;
+				max-width: 80%;
+				padding: 10px;
+			}
+			.profilepicture {
+				width: 20%;
+				min-width: 60px;
+				min-height: 60px;
+				max-width: 20%;
+				border-right: 10px lightgreen solid;
+			}
+			.profilepicture img {
+				width: 100%;
+				height: 100%;
+			}
+			.lastonline i {
+				font-size: 14px;
+			}
+			#manageChats {
+				width: 100%;
+				min-width: 300px;
+				display: flex;
+				flex-flow: row nowrap;
+				align-content: space-around;
+				background-color: gray;
+				border-bottom: 10px black solid;
+			}
+			#manageChats #newChat {
+				color: white;
+				background-color: green;
+				font-size: 28px;
+				width: 28px;
+				height: 100%;
+				text-align: center;
+			}
+
+			@keyframes changeBgOpacity {
+				from { background-color : rgba(0, 0, 0, 0);	}
+				to { background-color : rgba(0, 0, 0, 0.65); }
+			}
+			.overlayAnimate {
+				animation-name: changeBgOpacity;
+				animation-duration: 0.5s;
+				animation-fill-mode: forwards;
+			}
+			.overlay {
+				display: none;
+				position: fixed;
+				width: 100%;
+				height: 100%;
+				top: 0;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				z-index: 2;
+			}
+			.overlaybody {
+				width: 100%;
+				height: 100%;
+				font-size: 18px;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+			}
+			.overlaydiv {
+				border: 3px solid {{accent}};
+				border-bottom-style: none;
+				border-radius: 0.5vh;
+				min-width: 200px;
+				display: flex;
+				flex-direction: column;
+				width: 60%;
+				max-height: 50%;
+				background-color: {{light}};
+				padding: 5%;
+			}
+			#overlaybuttons {
+				display: flex;
+				justify-content: space-between;
+				flex-flow: row nowrap;
+			}
+			.overlaybtn {
+				width: 100%;
+				padding: 10px;
+				background-color: {{input}};
+				color: {{font}};
+				cursor: pointer;
+				margin-top: 10%;
+				box-sizing: border-box;
+				border: 3px solid {{light}};
+				border-bottom-style: none;
+				border-radius: 0.5vh;
+				text-align: center;
+				transition: 0.2s;
+			}
+			.overlaybtn:hover {
+				border: 3px solid {{accent}};
+				border-bottom-style: none;
+			}
+			.chooseUser {
+				width: 80%;
+				height: 100%;
+				min-height: 100%;
+				max-height: 100%;
+			}
+			#chooseUserDm {
+				width: 100%;
+				height: 14px;
+				padding-top: 10px;
+			}
+			#foundDmUsers {
+				display: flex;
+				flex-flow: column nowrap;
+				overflow: scroll;
+				-ms-overflow-style: none;
+				scrollbar-width: none;
+				width: 60%;
+				max-height: 20%;
+				border: 3px solid {{dark}};
+				border-top-style: none;
+				border-radius: 10px;
+			}
+			#foundDmUsers::-webkit-scrollbar {
+			  display: none;
+			}
+			.foundDmUser {
+				box-sizing: border-box;
+				border: 3px solid #82AFFF;
+				border-bottom-style: solid;
+				background-color: {{accent}};
+				text-align: left;
+				padding-left: 10px;
+			}
+			#loadingOverlay {
+				display: block;
+				position: fixed;
+				width: 100%;
+				height: 100%;
+				top: 0;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				z-index: 3;
+				background-color : rgba(0, 0, 0, 0.65);
+			}
+			#loadingOverlay img {
+				width: 50%;
+				height: auto;
+			}
+			#loadingOverlay_body {
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				height: 100%;
+				width: 100%;
+			}
+			
+			
+		</style>
+		
+		</head>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js" integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA==" crossorigin="anonymous"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+		<script>
+		let curChat = null;
+		let curChunk = null;
+		let saved_chunks = JSON.parse('{}');
+		
+		function addMessage(type, msg) {
+			if (type == 'text') {
+				if( $("#messages")[0].scrollTop === ($("#messages")[0].scrollHeight - $("#messages")[0].offsetHeight))
+				{
+					var scrolledBottom = true;
+				} else {
+					var scrolledBottom = false;
+				}
+				var msg_content = document.createElement("div");
+				msg_content.className = "msg";
+				var text = document.createTextNode(msg.text);
+				msg_content.appendChild(text);
+				var msg_box = document.createElement("div");
+				msg_box.className = "msg_own";
+				msg_box.appendChild(msg_content);
+				document.getElementById("messages").appendChild(msg_box);
+				if (scrolledBottom) {
+					$("#messages").scrollTop($("#messages")[0].scrollHeight);
+				} else {
+					var newMsgNotification = $("#newMsgNotification")[0]; var clone = newMsgNotification.cloneNode(true);
+					newMsgNotification.parentNode.replaceChild(clone, newMsgNotification);
+					$("#newMsgNotification")[0].style.display = "block";
+					$("#newMsgNotification")[0].setAttribute("class", "newMsgNotificationAnim-play");
+				}
+			}
+		}
+		
+		function isInViewport(element) {
+			const rect = element.getBoundingClientRect();
+			return (
+				rect.top >= 0 &&
+				rect.left >= 0 &&
+				rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+				rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+			);
+		}
+		
+		function cloneEventObj(eventObj, overrideObj){
+			if(!overrideObj){ overrideObj = {}; }
+			function EventCloneFactory(overProps){
+			   for(var x in overProps){
+				   this[x] = overProps[x];
+			   }
+			}
+			EventCloneFactory.prototype = eventObj;
+			return new EventCloneFactory(overrideObj);
+		}
+		
+		$(document).ready(function() {
+		
+			document.querySelector("#messageInput").addEventListener("keyup", event => {
+				if(event.key !== "Enter") return;
+				$('#sendButton').click();
+			});
+
+			var socket = io.connect('/chat');
+
+			socket.on('connect', function() {
+				$('#onclickEventRefresh')[0].click();
+			});
+			
+			$('#onclickEventRefresh').on('click', function() {
+				socket.emit('chatcontrol', {process: 'getAllChats'});
+			});
+
+			socket.on('chatmessage', function(msg) {
+				addMessage('text', msg)
+			});
+			
+			socket.on('chatcontrol', function(msg) {
+				if (msg.process) {
+					if (msg.process == 'refresh') {
+						document.getElementById("loadingOverlay").style.display = "block";
+						$('#onclickEventRefresh')[0].click();
+					}
+					else if (msg.process == 'getAllChats') {
+						$("#chats")[0].innerHTML = "";
+						if (msg.data.chat_id !== null)
+						{
+							for ( let c = 0; c < msg.data.chat_id.length; c++ ) {
+								if (msg.data.type[c] == 'dm') {
+									var dm_member = ( (msg.data.members_name[c].split(",")[0]==msg.username) ? msg.data.members_name[c].split(",")[1] : msg.data.members_name[c].split(",")[0]);
+									$("#chats")[0].innerHTML += '<div id="' + msg.data.chat_id[c] + '" class="chatlistobject" onclick="openChat(this)"><div class="profilepicture"><img src="/static/profilepictures/o707BmF0JPXNiBoNKLX3.png"/></div><div class="info"><div><div>' + dm_member + '</div><div><i>last online: 11 Months ago</i></div></div></div></div>';
+								}
+							}
+						}
+						document.getElementById("loadingOverlay").style.display = "none";
+						
+						var allChats = $("#chats")[0].childNodes;
+						console.log(allChats);
+						for ( let c = 0; (c < 5 && c < allChats.length-1); c++ ) {
+							//socket.emit('chatcontrol', {process: 'getChatChunk', index: 'last'});
+							console.log(allChats[c].id);
+						}
+					}
+					
+				}
+			});
+
+			$('#sendButton').on('click', function() {
+				console.log({chat_id: curChat, text: $('#messageInput').val()});
+				socket.emit('chatmessage', {chat_id: curChat, text: $('#messageInput').val()});
+				$('#messageInput').val('a');
+			});
+			
+			socket.on('usernamesearch', function(msg) {
+				$("#foundDmUsers")[0].innerHTML = "";
+				for ( let u of msg.matches) {
+					$("#foundDmUsers")[0].innerHTML += '<div class="foundDmUser" onclick="chooseDmPartner(this)"> ' + u + '</div>'
+				}
+			});
+			
+			$('#chooseUserDm').on('input', function() {
+				socket.emit('usernamesearch', {username: $('#chooseUserDm').val(), time: (new Date().getTime() / 1000)});
+			});
+			
+			$('#onclickEventNewChatDm').on('click', function() {
+				document.getElementById("loadingOverlay").style.display = "block";
+				document.getElementById("overlayNewDm").style.display = "none";
+				socket.emit('chatcontrol', {process: "newDm", username: $('#chooseUserDm').val()});
+			});
+		});
+		
+		function chooseDmPartner(el) {
+			$('#chooseUserDm').val(el.innerText);
+			$('#onclickEventNewChatDm')[0].click();
+		}
+		
+		function openChat(el) {
+			curChat = el.id;
+			console.log(curChat);
+		}
+		
+		function checkScrollPos() {
+			if ($("#messages")[0].scrollTop === ($("#messages")[0].scrollHeight - $("#messages")[0].offsetHeight)) {
+				$("#scrollDownButton")[0].style.display = "none";
+			} else {
+				$("#scrollDownButton")[0].style.display = "flex";
+			}
+			console.log("isInViewport");
+			console.log(isInViewport(document.getElementById("asdf01")));
+		}
+		
+		function addChatDialog(type=null) {
+			if (type==null) {
+				var overlayClone = document.getElementById("overlayNewChat"); var clone = overlayClone.cloneNode(true);
+				overlayClone.parentNode.replaceChild(clone, overlayClone);
+				document.getElementById("overlayNewChat").style.display = "block";
+				document.getElementById("overlayNewChat").setAttribute("class", "overlay overlayAnimate");
+			} else if (type=="dm") {
+				$('#chooseUserDm').val("");
+				document.getElementById("overlayNewChat").style.display = "none";
+				document.getElementById("overlayNewDm").style.display = "block";
+			}
+		}
+		
+		</script>
+	<body>
+		<div id="onclickEventNewChatDm" style="display: none;"></div>
+		<div id="onclickEventRefresh" style="display: none;"></div>
+		<div id="loadingOverlay">
+			<div id="loadingOverlay_body">
+				<img src="{{url_for('static', filename='cave_anim.svg')}}"/>
+			</div>
+		</div>
+		<div id="overlayNewChat" class="overlay">
+			<div class="overlaybody">
+				<div class="overlaydiv">
+					<div>What kind of chat do you want to create?</div>
+					<div id="overlaybuttons">
+						<div class="overlaybtn" onclick=addChatDialog("dm")>Direct-Message</div>
+						<div class="overlaybtn" onclick=addChatDialog("group")>Group-Chat</div>
+						<div class="overlaybtn" onclick=addChatDialog("broadcast")>Broadcast</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="overlayNewDm" class="overlay" style="background-color: rgba(0, 0, 0, 0.65);">
+			<div class="overlaybody">
+				<div class="overlaydiv">
+					<div style="padding-bottom: 10px;">Who do you want to chat with?</div>
+					<div>
+						<div class="chooseUser">
+							<input type="text" id="chooseUserDm"></input>
+							<div id=foundDmUsers></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="listchats">
+			<div id="manageChats">
+				<div>search</div>
+				<div id="newChat" onclick=addChatDialog()>+</div>
+			</div>
+			<div id="chats">
+				<div>Loading...</div>
+			</div>
+		</div>
+		<div id="chat">
+			<div id="messages" onscroll="checkScrollPos()">
+				<div id="asdf01" class="msg_not_own"><div class="msg">hi</div></div>
+				<div class="msg_not_own"><div class="msg">awsfghhdjgkhgf</div></div>
+				<div class="msg_not_own"><div class="msg">wzruejdhsgdafzwhjdg</div></div>
+				<div class="msg_own"><div class="msg">aewzhrujeedtg</div></div>
+				<div class="msg_own"><div class="msg">adhsfjgdhgtdekzrliuezw whw tqih fb	wjkfhvqwuzfvgwq ufquzfuq gtfueiwzqgfqeuzikgvk wefbgweghoiqefhqeohg qiwgtihgz toeiqfgabujghvbwibgq  q itgqigtiqetzqegt q</div></div>
+				<div class="msg_not_own"><div class="msg">hi</div></div>
+				<div class="msg_not_own"><div class="msg">awsfghhdjgkhgf</div></div>
+				<div class="msg_own"><div class="msg">wzruejdhsgdafzwhjdg</div></div>
+				<div class="msg_own"><div class="msg">aewzhrujeedtg</div></div>
+				<div class="msg_own"><div class="msg">adhsfjgdhgtdekzrliuezw whw tqih fb	wjkfhvqwuzfvgwq ufquzfuqzgtfueiwzqgfqeuzikgvkwefbgweghoiqefhqeohgqiwgtihgztoeiqfgabujghvbwibgq  q itgqigtiqetzqegt q</div></div>
+			</div>
+			<div id="newMsgNotification" onclick="$('#messages').scrollTop($('#messages')[0].scrollHeight)">New Message!</div>
+			<!-- https://unicode-table.com/en/sets/arrow-symbols/ -->
+			<div width=100% height=20px style="display: flex; flex-flow: row nowrap;">
+				<div id="scrollDownButton" onclick="$('#messages').scrollTop($('#messages')[0].scrollHeight)">&#9660;</div>
+				<input type="text" id="messageInput"></input>
+				<div id="sendButton"><div>send</div></div>	
+			</div>
+		</div>
+		
+			
+	</body>	
+</html>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset='utf-8'>
+		<title>Info</title>
+		
+		<style>
+			html, body {
+				font-family: 'Trebuchet MS', sans-serif;
+				color: {{font}};
+				height: 100%;
+				margin: 0;
+				user-select: none;
+			}
+			body {
+				background-color: {{dark}};
+				font-family: 'Trebuchet MS', sans-serif;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				flex-direction: column;
+			}
+			.border {
+				
+				height: 50%;
+				width: 100%;
+			}
+			#content {
+				position: fixed;
+				background-color: {{light}};
+				height: 40vh;
+				min-height: 150px;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				align-content: space-around;
+				width: 100%;
+			}
+			#text {
+				min-width: 300px;
+				width: 50%;
+				font-size: 22px;
+			}
+			#text a {
+				color: {{href}}
+			}
+			
+			.bg {
+				animation:slide 6s ease-in-out infinite alternate;
+				background-image: linear-gradient(-60deg, {{dark}} 50%, {{light}} 50%);
+				bottom:0;
+				left:-50%;
+				opacity:.5;
+				position:fixed;
+				right:-50%;
+				top:0;
+				z-index:-1;
+			}
+
+			.bg2 {
+				animation-direction:alternate-reverse;
+				animation-duration:8s;
+			}
+
+			.bg3 {
+				animation-duration:10s;
+			}
+			@keyframes slide {
+				0% {
+					transform:translateX(-25%);
+				}
+				100% {
+					transform:translateX(25%);
+				}
+			}
+		</style>
+		
+		</head>
+	<body>
+		<div class="bg"></div>
+		<div class="bg bg2"></div>
+		<div class="bg bg3"></div>
+		<div id="content">
+			<div id="text">
+				{{show_text|safe}}
+			</div>
+		</div>
+		
+	</body>
+</html>

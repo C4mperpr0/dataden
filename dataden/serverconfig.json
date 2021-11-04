@@ -1,0 +1,14 @@
+{
+    "session_secret_key": "Xb7CQ7vNn2DaKrCHRnIHmm+cvaKhUplU",
+    "server_mail": {
+        "user": "DataDen.noreply@gmail.com",
+        "password": "iSZ&e6$n6a3yC@FNL4cY",
+        "address": "smtp.gmail.com",
+        "port": 587
+    },
+    "server_ip": "0.0.0.0",
+    "server_port": 8080,
+    "debug": true,
+    "threading": true,
+    "fileuploadpath": "./uploads"
+}
