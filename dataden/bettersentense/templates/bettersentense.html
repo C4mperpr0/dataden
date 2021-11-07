@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset='utf-8'>
+		<title>Better Sentense</title>
+		
+		<style>
+			html, body {
+				font-family: 'Trebuchet MS', sans-serif;
+				color: {{font}};
+				height: 100%;
+				margin: 0;
+				user-select: none;				
+			}
+			body {
+				font-family: 'Trebuchet MS', sans-serif;
+				background-color: {{dark}};
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				flex-flow: column nowrap;
+				min-width: 600px;
+				min-height: 450px;
+			}transform: scale(1, 1);
+			}
+			#controlbar {
+                background-color: {{light}};
+                display: flex;
+                justify-content: center;
+                flex-flow: row nowrap;
+                width: 100%;
+                height: 20%;
+			}
+			#buttonTranslate {
+                width: 20%;
+                text-align: center;
+                background-color: {{button}};
+            }
+            #textio {
+                background-color: {{dark}};
+                display: flex;
+                justify-content: space-around;
+                flex-flow: row nowrap;
+            }
+            #textoutput #textinput {
+                background-color: {{light}};
+                widht: 45%;
+                height: 80%;
+                word-wrap: break-word;
+                align: justify; 
+            }
+		</style>
+	</head>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js" integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA==" crossorigin="anonymous"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+	<script>
+	
+	$(document).ready(function() {		
+		var socket = io.connect('/bettersentense');
+
+		socket.on('connect', function() {
+				}
+			}
+		});
+		
+		socket.on('progress', function(progess, max, curlang, text) {
+            console.log(progress);
+            console.log(max);
+            console.log(curlang);
+		});
+		
+		$('buttonTranslate').on('click', function() {
+			socket.emit('translate', {text: $("#textinput").innerHTML});
+		});
+		
+	});
+	
+	</script>
+	<body>
+		<div id="controlbar">
+			<div id="buttonTranslate">Übersetzen</div>
+		</div>
+		<div id="textio">
+            <div id="textinput" contentEditable="true">
+                Die ist ein Testtext, er erfüllt keinerlei Zweck, jedoch wir hier eines Tages ein Text mit Sinn stehen, so hoffe ich jedefalls.
+            </div>
+            <div id="textoutput">
+                Hier könnte ihr output stehen.
+            </div>
+		</div>
+	</body>
+</html>
