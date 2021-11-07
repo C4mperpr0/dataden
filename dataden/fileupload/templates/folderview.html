@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset='utf-8'>
+		<title>Fileupload</title>
+		
+		<style>
+			html, body {
+				font-family: 'Trebuchet MS', sans-serif;
+				color: {{font}};
+				height: 100%;
+				margin: 0;
+				user-select: none;				
+			}
+			body {
+				font-family: 'Trebuchet MS', sans-serif;
+				background-color: {{dark}};
+				display: flex;
+				justify-content: center;
+				align-items: center;
+			}
+			.files {
+				width: 50%;
+				height: 60%;
+				background-color: blue;
+				display: flex;
+				flex-flow: column nowrap;
+				align-items: center;
+				background-color: {{light}};
+			}
+			.file {
+				width: 90%;
+				display: flex;
+				flex-flow: row nowrap;	
+				justify-content: space-around;
+				align-items: center;
+				background-color: {{dark}};
+				height: 40px;
+				margin-top: 5px;		
+			}
+			.filetitle {
+				text-overflow: ellipsis;
+				overflow: hidden;
+				white-space: nowrap;
+				width: 35%;
+			}
+
+			.fileinfo {
+				font-size: 80%;
+				font-family: mono-space;		
+			}
+		</style>
+		
+		</head>
+	<body>
+		
+		<div class="files">
+			<div class="file">
+				<div class="filetitle">&#128194; Test.png</div>
+				<div class="fileinfo">09-09-2021 09:52</div>
+				<div class="fileinfo">240 Mb</div>					
+			</div>
+			<div class="file">
+				<div class="filetitle">&#128466; TestTestdwerzhtjdwjdhfwjetwrhj ashrgh wrhrh.png</div>
+				<div class="fileinfo">09-09-2021 09:52</div>
+				<div class="fileinfo">240 Mb</div>					
+			</div>
+			<div class="file">
+				<div class="filetitle">&#128194; TestTestdwerzhtjdwjdhfwjetwrhj ashrgh wrhrh.pngTestTestdwerzhtjdwjdhfwjetwrhj ashrgh wrhrh.pngTestTestdwerzhtjdwjdhfwjetwrhj ashrgh wrhrh.pngTestTestdwerzhtjdwjdhfwjetwrhj ashrgh wrhrh.png</div>
+				<div class="fileinfo">09-09-2021 09:52</div>
+				<div class="fileinfo">240 Mb</div>					
+			</div>
+			<div class="file">
+				<div class="filetitle">&#128194; Tesat.png</div>
+				<div class="fileinfo">09-09-2021 09:52</div>
+				<div class="fileinfo">240 Mb</div>					
+			</div>
+		</div>
+        	  
+	</body>
+	
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+</html>

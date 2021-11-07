@@ -19,12 +19,15 @@ chat = Blueprint("chat", __name__, static_folder="static", template_folder="temp
 
 @chat.route('/', methods=['GET', 'POST'])
 def chat_():
-    if 'user_id' in session.keys():
-        if request.method == 'GET':
-            return render_template('chat.html',
-                                   **colorThemes['default'])
-        else:
-            return "post"
+    if 'user_id' not in session.keys():
+        return render_template('login.html',
+                               redirect_url=request.url,
+                               **colorThemes['default'])
+    if request.method == 'GET':
+        return render_template('chat.html',
+                               **colorThemes['default'])
+    else:
+        return "post"
 
 # Socket IO
 

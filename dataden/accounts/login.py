@@ -20,8 +20,10 @@ def login_():
         if 'user_id' in session.keys():
             return f"moin {escape(session['username'])}"
         return render_template('login.html',
+                               redirect_url='',
                                **colorThemes['default'])
     else:
+        print("post")
         time.sleep(1)
         check_login = sqliteDB.check_login(request.form['mail'], request.form['password'], 'userdata')
         if check_login is not None:
@@ -35,6 +37,6 @@ def login_():
                                        request.args.get("redirect") if 'redirect' in request.args else '/'),
                                    **colorThemes['default'])
             """
-            return jsonify({'visiturl': '/'})
+            return jsonify({'login': True})
         else:
             return jsonify({'error': 'loginerror'})

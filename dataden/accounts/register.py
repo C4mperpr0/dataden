@@ -6,6 +6,7 @@ import time
 
 import mailservervice
 import sqliteDB
+from database import db, Verification
 import tasklib
 
 from serverconfig import Serverconfig
@@ -86,8 +87,10 @@ def register_():
         if not send_mail_status:
             return jsonify({'error': 'mailsenderror'})
         hash_salt = tasklib.generate_salt()
-        sqliteDB.sql(f'INSERT INTO verification (mail, username, password, hash_salt, verification_id) VALUES (?, ?, ?, ?, ?)', (request.form["mail"].lower(), request.form["username"], tasklib.hashData(request.form["password"], hash_salt), hash_salt, verification_id))
-        # !!!!!!!!!! FIX: generate query with flask to prevent errors
+
+        db.session.add(Verification(id=verification_id, mail=request.form["mail"].lower(), username=request.form["username"], password=tasklib.hashData(request.form["password"], hash_salt), hash_salt=hash_salt))
+        db.session.commit()
+
         return jsonify({'visiturl': f'../register?userregistered={request.form["username"]}'})
 
     elif 'userregistered' in request.args.keys():

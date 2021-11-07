@@ -5,9 +5,14 @@ import os
 
 from serverconfig import Serverconfig
 import sqliteDB
+from flask_sqlalchemy import SQLAlchemy
 from flask_session import Session
 
-import bettersentense
+import accounts
+import fileupload
+import chatsystem
+import sergalmerp
+import remoteControl
 
 Serverconfig = Serverconfig()
 
@@ -23,8 +28,18 @@ Session(app)
 socketio = SocketIO(app, manage_session=False,
                     cors_allowed_origins='*')  # cors_allowed_origins='*' is for session access
 
-app.register_blueprint(bettersentense.bettersentense.bettersentense, url_prefix="/bettersentense")
-socketio.on_namespace(bettersentense.bettersentense.Socketio('/bettersentense'))
+from database import db
+
+app.register_blueprint(accounts.login.login, url_prefix="/login")
+app.register_blueprint(accounts.register.register, url_prefix="/register")
+app.register_blueprint(accounts.verify.verify, url_prefix="/verify")
+app.register_blueprint(fileupload.fileupload.fileupload, url_prefix="/fileupload")
+app.register_blueprint(chatsystem.chat.chat, url_prefix="/chat")
+socketio.on_namespace(chatsystem.chat.Socketio('/chat'))
+app.register_blueprint(sergalmerp.sergalmerp.sergalmerp, url_prefix="/sergalmerp")
+socketio.on_namespace(sergalmerp.sergalmerp.Socketio('/sergalmerp'))
+app.register_blueprint(remoteControl.remoteControl.remoteControl, url_prefix="/rc")
+socketio.on_namespace(remoteControl.remoteControl.Socketio('/rc'))
 
 
 @app.route('/loginred')

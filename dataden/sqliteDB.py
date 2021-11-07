@@ -179,3 +179,25 @@ def setupDB():
                     content TEXT,
                     PRIMARY KEY("message_id")
                     )''')
+    sql('''CREATE TABLE filestorage (
+                        file_id TEXT,
+                        file_path TEXT,
+                        storage TEXT,
+                        type TEXT,
+                        file_name TEXT,
+                        creation_time DATETIME,
+                        file_size INT,
+                        PRIMARY KEY("file_id")
+                        )''')
+    # storage -> webdrive, projectdrive, ...
+    # type -> file, directory
+    sql('''CREATE TABLE remotecontrol (
+                        device_id TEXT,
+                        os TEXT,
+                        owner TEXT,
+                        co_users TEXT
+                        device_name,
+                        veify_expiry DATETIME,
+                        info TEXT,
+                        PRIMARY KEY("device_id")
+                        )''')

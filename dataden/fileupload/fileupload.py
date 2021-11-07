@@ -2,6 +2,7 @@ from flask import *
 from werkzeug.utils import secure_filename
 import json
 import os
+from accounts import login
 
 from serverconfig import Serverconfig
 
@@ -25,6 +26,10 @@ def allowed_file(filename):
     return True
 @fileupload.route('/', methods=['GET', 'POST'])
 def fileupload_():
+    if 'user_id' not in session.keys():
+        return render_template('login.html',
+                               redirect_url=request.url,
+                               **colorThemes['default'])
     if request.method == 'POST':
         # check if the post request has the file part
         if 'file' not in request.files:
@@ -40,7 +45,9 @@ def fileupload_():
             filename = secure_filename(file.filename)
             file.save(os.path.join(Serverconfig.get('fileuploadpath'), filename))
             return redirect(url_for("fileupload.fileupload_"))
-    return f'<!doctype html><title>Upload new File</title><h1>Upload new File</h1><form method=post enctype=multipart/form-data><input type=file name=file><input type=submit value=Upload></form><a href="{url_for("fileupload.list")}">List of Files</a>'
+    #return f'<!doctype html><title>Upload new File</title><h1>Upload new File</h1><form method=post enctype=multipart/form-data><input type=file name=file><input type=submit value=Upload></form><a href="{url_for("fileupload.list")}">List of Files</a>'
+    return render_template('fileupload.html',
+                           **colorThemes['default'])
 
 @fileupload.route('/list', methods=['GET', 'POST'])
 def list():

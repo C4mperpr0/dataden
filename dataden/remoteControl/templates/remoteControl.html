@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset='utf-8'>
+		<title>Remote Control</title>
+		
+		<style>
+			html, body {
+				font-family: 'Trebuchet MS', sans-serif;
+				color: {{font}};
+				height: 100%;
+				margin: 0;
+				user-select: none;				
+			}
+			body {
+				font-family: 'Trebuchet MS', sans-serif;
+				background-color: {{dark}};
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				min-width: 600px;
+				min-height: 450px;
+			}
+			#inputCommand {
+				width: 95%;
+				height: 20%;
+				font-size: 150%;
+			}
+		</style>
+	</head>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js" integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA==" crossorigin="anonymous"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+	<script>
+
+	$(document).ready(function() {
+		
+		var socket = io.connect('/rc');
+		
+		document.querySelector("#inputCommand").addEventListener("keyup", event => {
+			if(event.key !== "Enter") return;
+			console.log($("#inputCommand").val());
+			socket.emit('command', {command: $("#inputCommand").val()});
+			$("#inputCommand").val('');
+		});
+		
+		$('#fileEditArea').on('scroll', function() {
+			$('#linenumbers').scrollTop(0); // https://makandracards.com/makandra/8247-scroll-a-textarea-to-a-given-line-with-jquery
+		});
+		
+	});
+	
+	function changeFontsize(add) {
+		$('#fileEditArea').css({ 'font-size':  ( parseInt($('#fileEditArea').css('font-size').replace('px','')) + add + 'px' ) });
+		$('#linenumbers').css({ 'font-size':  ( parseInt($('#linenumbers').css('font-size').replace('px','')) + add + 'px' ) });
+	}
+	
+	</script>
+	<body>
+	
+		<div id="fileEditor" style="display: flex;">
+			<style>
+			#fileEditor {
+				position: fixed;
+				width: 100%;
+				height: 100%;
+				background-color: rgba(0, 0, 0, 0.65);
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				flex-flow: column nowrap;
+			}
+			#fileEditor #fileEditArea {
+				width: 100%;
+				height: 100%;
+				resize: none;
+				box-sizing: border-box;
+				border-top: 3px solid {{light}};
+				border-left: none;
+				background-color: {{input}};
+				outline: none;
+				overflow-x: scroll;
+				overflow-y: scroll;
+				white-space: pre;
+			}
+			#fileEditor #linenumbers {
+				width: 30px;
+				height: 100%;
+				resize: none;
+				box-sizing: border-box;
+				border-top: 3px solid {{light}};
+				background-color: {{input}};
+				border-left: none;
+				border-right: none;
+				outline: none;
+				overflow-x: hidden;
+				overflow-y: hidden;
+				user-select: none;
+			}
+			#fileButtons {
+				width: 90%;
+				height: 20%;
+				display: flex;
+				flex-flow: row nowrap;
+				justify-content: space-between;
+			}
+			.fileButton {
+				background-color: {{input}};
+				width: 25%;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				font-size: 2.5vw;
+				cursor: pointer;
+				box-sizing: border-box;
+				border: 3px solid {{light}};
+				border-radius: 0.5vh 0.5vh 0 0;
+				border-bottom-style: none;
+				transition: border-bottom 0.2s ease-out;
+			}
+			.fileButton:hover {
+				border-bottom: 7px solid {{accent}};
+			}
+			#changeFontsizeBoxBtn:hover {
+				border-bottom: none;
+			}
+			#changeFontsizeBox {
+				display: flex;
+				flex-flow: row nowrap;
+				justify-content: space-around;
+				width: 100%;
+			}
+			.changeFontsize {
+				width: 45%;
+				background-color: {{input}};
+				text-align: center;
+				border-radius: 1vh 0 1vh 0;
+				border: 3px solid {{accent}};
+				box-sizing: border-box;
+				transition: background-color 0.2s ease-out;
+			}
+			.changeFontsize:hover {
+				background-color: {{light}};
+			}
+			</style>
+			<div id="fileButtons">
+				<div class="fileButton" style="border-radius: 4.5vh 0.5vh 0 0;"><div>Save</div></div>
+				<div class="fileButton"><div>Save & Exit</div></div>
+				<div class="fileButton"><div>Cancel</div></div>
+				<div class="fileButton" id="changeFontsizeBoxBtn" style="border-radius: 0.5vh 4.5vh 0 0; display: flex; flex-flow: column nowrap">
+					<div>Font size</div>
+					<div id="changeFontsizeBox">
+						<div class="changeFontsize" onclick=changeFontsize(1)>+</div>
+						<div class="changeFontsize" onclick=changeFontsize(-1)>-</div>
+					</div>
+				</div>
+			</div>
+			<div style="width:90%; height:75%; display:flex; flex-flow: row nowrap;">
+				<textarea readonly id="linenumbers"></textarea>
+				<textarea id="fileEditArea"></textarea>
+			</div>
+		</div>
+
+		<div id="functions">
+		<input type="text", name="command", id="inputCommand", required />
+		</div>
+	</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
