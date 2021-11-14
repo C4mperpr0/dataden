@@ -6,7 +6,7 @@ import time
 
 import mailservervice
 import sqliteDB
-from database import db, Verification
+from database import db, User, Verification
 import tasklib
 
 from serverconfig import Serverconfig
@@ -27,9 +27,11 @@ def register_():
         time.sleep(1)
         print(request.form)
         if request.form['processtype'] == 'abortRegistration':  # abort register
+            ### dont forget to write for sqlalchemy
             sqliteDB.sql(f'DELETE FROM verification WHERE mail=?', request.form["mail"])
             return jsonify({'visiturl': f'../register?registrationDel={request.form["mail"]}'})
         elif request.form['processtype'] == 'resendMail':  # send verification mail again
+            ### dont forget to write for sqlalchemy
             if not sqliteDB.sql(f'SELECT EXISTS(SELECT 1 FROM verification WHERE mail=? LIMIT 1)', request.form["mail"]):
                 return jsonify({'error': 'err02'})
             user_data = sqliteDB.to_json(sqliteDB.sql(f'SELECT * FROM verification WHERE mail=?', request.form["mail"]),
@@ -41,13 +43,27 @@ def register_():
                                                                                             user_data['verification_id']))
             if not send_mail_status:
                 return jsonify({'error': 'mailsenderror'})
-            else:
-                return jsonify({'visiturl': f'../register?userregistered={request.form["username"]}'})
+            return jsonify({'visiturl': f'../register?userregistered={request.form["username"]}'})
         # mail
         if request.form['mail'] == '':
             return jsonify({'error': 'err00'})  # mail empty
 
-        elif sqliteDB.sql(f'SELECT EXISTS(SELECT 1 FROM userdata WHERE mail=? LIMIT 1)', request.form["mail"].lower(), 1):
+
+
+
+
+        #elif sqliteDB.sql(f'SELECT EXISTS(SELECT 1 FROM userdata WHERE mail=? LIMIT 1)', request.form["mail"].lower(), 1):
+
+        #    pass
+        print("COcktime:")
+        
+        print(User.query.filter_by(mail='admin').first() is None)
+        print("no cock ;(")
+        if False:
+
+
+
+
             return jsonify({'error': 'err01'})  # mail already verified
         elif sqliteDB.sql(f'SELECT EXISTS(SELECT 1 FROM verification WHERE mail=? LIMIT 1)', request.form["mail"], 1):
             return jsonify(
