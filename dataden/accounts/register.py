@@ -56,8 +56,8 @@ def register_():
 
         #    pass
         print("COcktime:")
-        
-        print(User.query.filter_by(mail='admin').first() is None)
+        print(User.query.all())
+        print(User.query.filter_by(mail='admin').first())
         print("no cock ;(")
         if False:
 

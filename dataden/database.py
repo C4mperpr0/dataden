@@ -3,10 +3,11 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///dataden.sqlite'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 db = SQLAlchemy(app)
 
+def init():
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///dataden.sqlite'
+    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 
 class User(db.Model):
     id = db.Column(db.String(20), primary_key=True)

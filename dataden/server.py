@@ -29,7 +29,7 @@ socketio = SocketIO(app, manage_session=False,
                     cors_allowed_origins='*')  # cors_allowed_origins='*' is for session access
 
 from database import db
-db.create_all()
+#db.create_all()
 
 app.register_blueprint(accounts.login.login, url_prefix="/login")
 app.register_blueprint(accounts.register.register, url_prefix="/register")
