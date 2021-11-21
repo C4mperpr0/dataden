@@ -6,10 +6,10 @@ import time
 
 import mailservervice
 import sqliteDB
-from database import db, User, Verification
 import tasklib
 
 from serverconfig import Serverconfig
+
 
 Serverconfig = Serverconfig()
 
@@ -55,17 +55,21 @@ def register_():
         #elif sqliteDB.sql(f'SELECT EXISTS(SELECT 1 FROM userdata WHERE mail=? LIMIT 1)', request.form["mail"].lower(), 1):
 
         #    pass
-        print("COcktime:")
-        print(User.query.all())
-        print(User.query.filter_by(mail='admin').first())
-        print("no cock ;(")
-        if False:
+        #print("COcktime:")
+        #print(current_app)
 
+        # Working:
+        #current_app.db.session.add(current_app.DbClasses.UserTest(username="kcock", email="kexample@cock.com"))
+        #current_app.db.session.commit()
 
+        #print(current_app.DbClasses.UserTest.query.all())
+        #print(current_app.DbClasses.UserTest.query.all()[0].email)
+        #print(current_app.DbClasses.UserTest.query.filter_by(email='admin').first())
+        #print("no cock ;(")
 
-
+        if current_app.DbClasses.User.query.filter_by(mail=request.form['mail'].lower()).first() is not None:
             return jsonify({'error': 'err01'})  # mail already verified
-        elif sqliteDB.sql(f'SELECT EXISTS(SELECT 1 FROM verification WHERE mail=? LIMIT 1)', request.form["mail"], 1):
+        elif current_app.DbClasses.Verification.query.filter_by(mail=request.form['mail'].lower()).first() is not None:
             return jsonify(
                 {'error': 'err03'})  # mail already within verification; (err02 is changeMail, so not needed on server)
         # password
@@ -90,11 +94,11 @@ def register_():
             return jsonify({'error': 'err31'})  # username too short
         elif len(request.form['username']) > 24:
             return jsonify({'error': 'err32'})  # username too long
-        elif sqliteDB.sql(f'SELECT EXISTS(SELECT 1 FROM userdata WHERE username=? LIMIT 1)', request.form["username"], 1) or sqliteDB.sql(f'SELECT EXISTS(SELECT 1 FROM verification WHERE username=? LIMIT 1)', request.form["username"], 1):
+        elif current_app.DbClasses.User.query.filter_by(username=request.form['username'].lower()).first() is not None or current_app.DbClasses.Verification.query.filter_by(username=request.form['username'].lower()).first() is not None:
             return jsonify({'error': 'err33'})  # username already exists
         elif not tasklib.stringcontents(request.form['username']):
             return jsonify({'error': 'err34'})  # username is not alpha-numerical
-        verification_id = sqliteDB.new_user_id()
+        verification_id = sqliteDB.new_user_id(current_app)
         send_mail_status = mailservervice.sendmail(Serverconfig.get('server_mail'),
                                                    request.form["mail"],
                                                    'Data-Den Registration Verification',
@@ -104,8 +108,8 @@ def register_():
             return jsonify({'error': 'mailsenderror'})
         hash_salt = tasklib.generate_salt()
 
-        db.session.add(Verification(id=verification_id, mail=request.form["mail"].lower(), username=request.form["username"], password=tasklib.hashData(request.form["password"], hash_salt), hash_salt=hash_salt))
-        db.session.commit()
+        current_app.db.session.add(current_app.DbClasses.Verification(id=verification_id, mail=request.form["mail"].lower(), username=request.form["username"], password=tasklib.hashData(request.form["password"], hash_salt), hash_salt=hash_salt))
+        current_app.db.session.commit()
 
         return jsonify({'visiturl': f'../register?userregistered={request.form["username"]}'})
 

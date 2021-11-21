@@ -22,11 +22,11 @@ def verify_():
             return render_template('verify.html',
                                    **colorThemes['default'])
     else:
-        check_login = sqliteDB.check_login(request.form['mail'],
+        check_login = sqliteDB.check_login(current_app,
+                                           request.form['mail'],
                                            request.form['password'],
-                                           'verification',
-                                           verification_key='verification_id',
-                                           verification_id=request.args.get('u'))
+                                           current_app.DbClasses.Verification,
+                                           verification_key=request.args.get('u'))
         if check_login is not None:
             session['user_id'] = check_login['verification_id']
             session['username'] = check_login['username']

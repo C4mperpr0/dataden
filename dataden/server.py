@@ -5,8 +5,8 @@ import os
 
 from serverconfig import Serverconfig
 import sqliteDB
-from flask_sqlalchemy import SQLAlchemy
 from flask_session import Session
+import database
 
 import accounts
 import fileupload
@@ -16,20 +16,25 @@ import remoteControl
 
 Serverconfig = Serverconfig()
 
+try:
+    os.remove("./dataden.sqlite")
+except:
+    pass
+
 # import color themes
 with open('./templateColors.json', 'r') as file:
     global colorThemes
     colorThemes = json.loads(file.read())
 
 app = Flask(__name__)
+
+database.init_app(app)
+
 app.config['SECRET_KEY'] = Serverconfig.config['session_secret_key']
 app.config['SESSION_TYPE'] = 'filesystem'
 Session(app)
 socketio = SocketIO(app, manage_session=False,
                     cors_allowed_origins='*')  # cors_allowed_origins='*' is for session access
-
-from database import db
-#db.create_all()
 
 app.register_blueprint(accounts.login.login, url_prefix="/login")
 app.register_blueprint(accounts.register.register, url_prefix="/register")

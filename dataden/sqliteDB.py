@@ -3,9 +3,10 @@ import tasklib
 
 sqlclient.init(("127.0.0.1", 2110), b"1234")
 
+
 def sql(query, values=tuple(), singleReturn=False):
     if not isinstance(values, tuple):
-        values = (values, )
+        values = (values,)
     r = sqlclient.request(query, values)
     if singleReturn:
         while isinstance(r, (list, tuple)) and len(r) == 1:
@@ -18,11 +19,12 @@ def sql(query, values=tuple(), singleReturn=False):
     return r
 
 
-def new_user_id():
+def new_user_id(current_app):
     while True:
         verification_id = tasklib.random_string(20)
-        if sql(f'SELECT EXISTS(SELECT 1 FROM userdata WHERE user_id=? LIMIT 1)', verification_id, 1) or sql(
-                f'SELECT EXISTS(SELECT 1 FROM verification WHERE verification_id=? LIMIT 1)', verification_id, 1):
+        if current_app.DbClasses.User.query.filter_by(
+                username=verification_id).first() is not None or current_app.DbClasses.Verification.query.filter_by(
+                username=verification_id).first() is not None:
             continue
         return verification_id
 
@@ -35,20 +37,27 @@ def new_chat_id():
         return chat_id
 
 
-def check_login(mail, password, table='userdata', verification_key=None, verification_id=None):
-    if sql(f'SELECT EXISTS(SELECT 1 FROM {table} WHERE mail=? LIMIT 1)', (mail.lower()), 1):
-        user_data = to_json(sql(f'SELECT * FROM {table} WHERE mail=?', (mail.lower())), table)
+def check_login(current_app, mail, password, table, verification_key=None):
+    if table.query.filter_by(mail=mail.lower()).first() is not None:
+        user_data = table.query.filter_by(mail=mail.lower()).first()
         if verification_key is not None:
-            verification_id_match = verification_id == user_data[verification_key]
+            verification_id_match = user_data.id == verification_key
         else:
-            verification_id_match = True  # no key need because its regular login, not verification
-        r = user_data if (user_data['password'] == tasklib.hashData(
-            password, user_data["hash_salt"]) and verification_id_match) else None  # !!!!! Fix: don't forget to insert salt here
+            verification_id_match = True  # no key needed because it is an regular login, not verification
+        r = user_data if (user_data.password == tasklib.hashData(
+            password,
+            user_data.hash_salt) and verification_id_match) else None  # !!!!! Fix: don't forget to insert salt here
     else:
         r = None
     if r is not None and verification_key is not None:  # verification_key != None means that it's an verification, not an login
-        sql(f'INSERT INTO userdata (mail, username, user_id, password, hash_salt, design, mail_visible, phone_visible) VALUES (?, ?, ?, ?, ?, ?, ?, ?)', (mail.lower(), user_data["username"], verification_id, user_data["password"], user_data["hash_salt"], "default", 1, 1))
-        sql(f'DELETE FROM verification WHERE verification_id=?', verification_id)
+        current_app.db.session.add(
+            current_app.DbClasses.User(id=verification_key,
+                                       mail=mail.lower(),
+                                       username=r.username,
+                                       password=tasklib.hashData(password, r.hash_salt),
+                                       hash_salt=r.hash_salt))
+        table.query.filter_by(id=verification_key).delete()
+        current_app.db.session.commit()
     return r
 
 

@@ -23,9 +23,14 @@ def login_():
                                redirect_url='',
                                **colorThemes['default'])
     else:
-        print("post")
         time.sleep(1)
+
+
         check_login = sqliteDB.check_login(request.form['mail'], request.form['password'], 'userdata')
+        #if current_app.DbClasses.User.query.filter_by(mail=request.form['mail'].lower()).first() is not None:
+
+
+
         if check_login is not None:
             session['user_id'] = check_login['user_id']
             session['username'] = check_login['username']
