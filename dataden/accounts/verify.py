@@ -28,9 +28,9 @@ def verify_():
                                            current_app.DbClasses.Verification,
                                            verification_key=request.args.get('u'))
         if check_login is not None:
-            session['user_id'] = check_login['verification_id']
-            session['username'] = check_login['username']
-            session['user_mail'] = check_login['mail']
+            session['user_id'] = check_login.id
+            session['username'] = check_login.username
+            session['user_mail'] = check_login.mail
             session['design'] = 'default'
             return jsonify({'logged_in': True})
         else:

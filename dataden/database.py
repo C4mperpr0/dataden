@@ -13,9 +13,9 @@ def init_app(app):
         username = db.Column(db.String(1), unique=True, nullable=False)
         password = db.Column(db.String(0), nullable=False)
         hash_salt = db.Column(db.String(0), nullable=False)
-        settings = db.Column(db.String(0), nullable=False)
-        design = db.Column(db.String(0), nullable=False)
-        phone = db.Column(db.String(0), nullable=False)
+        settings = db.Column(db.String(0), nullable=False, default=0)
+        design = db.Column(db.String(0), nullable=False, default='default')
+        phone = db.Column(db.String(0), default=None)
         account_creation = db.Column(db.DateTime, default=datetime.now())
 
         def __repr__(self):
