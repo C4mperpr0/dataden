@@ -2,21 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a46347b8-0597-442d-a351-0ea80cc614f2" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/dbnavigator.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/accounts/login.py" beforeDir="false" afterPath="$PROJECT_DIR$/accounts/login.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/accounts/register.py" beforeDir="false" afterPath="$PROJECT_DIR$/accounts/register.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/accounts/templates/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/accounts/templates/login.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/accounts/templates/register.html" beforeDir="false" afterPath="$PROJECT_DIR$/accounts/templates/register.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/accounts/templates/verify.html" beforeDir="false" afterPath="$PROJECT_DIR$/accounts/templates/verify.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/accounts/verify.py" beforeDir="false" afterPath="$PROJECT_DIR$/accounts/verify.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database.py" beforeDir="false" afterPath="$PROJECT_DIR$/database.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dataden.sqlite" beforeDir="false" afterPath="$PROJECT_DIR$/dataden.sqlite" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flask_session/2029240f6d1128be89ddc32729463129" beforeDir="false" afterPath="$PROJECT_DIR$/flask_session/2029240f6d1128be89ddc32729463129" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server.py" beforeDir="false" afterPath="$PROJECT_DIR$/server.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sqliteDB.py" beforeDir="false" afterPath="$PROJECT_DIR$/sqliteDB.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -43,6 +30,7 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
   </component>
   <component name="RunManager" selected="Python.server">
     <configuration name="database" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
