@@ -11,7 +11,11 @@ with open('./templateColors.json', 'r') as file:
     global colorThemes
     colorThemes = json.loads(file.read())
 
-bettersentense = Blueprint("bettersentense", __name__, static_folder="static", template_folder="templates", static_url_path='/static/bettersentense')
+bettersentense = Blueprint("bettersentense",
+                           __name__,
+                           static_folder="static",
+                           template_folder="templates",
+                           static_url_path='/static/bettersentense')
 
 
 @bettersentense.route('/', methods=['GET', 'POST'])

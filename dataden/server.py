@@ -3,6 +3,7 @@ from flask_socketio import SocketIO
 import json
 import os
 
+import bettersentense.bettersentense
 from serverconfig import Serverconfig
 import sqliteDB
 from flask_session import Session
@@ -16,10 +17,10 @@ import remoteControl
 
 Serverconfig = Serverconfig()
 
-try:
-    os.remove("./dataden.sqlite")
-except:
-    pass
+# try:
+#     os.remove("./dataden.sqlite")
+# except:
+#     pass
 
 # import color themes
 with open('./templateColors.json', 'r') as file:
@@ -44,6 +45,8 @@ app.register_blueprint(chatsystem.chat.chat, url_prefix="/chat")
 socketio.on_namespace(chatsystem.chat.Socketio('/chat'))
 app.register_blueprint(sergalmerp.sergalmerp.sergalmerp, url_prefix="/sergalmerp")
 socketio.on_namespace(sergalmerp.sergalmerp.Socketio('/sergalmerp'))
+app.register_blueprint(bettersentense.bettersentense.bettersentense, url_prefix="/bettersentense")
+socketio.on_namespace(bettersentense.bettersentense.Socketio('/bettersentense'))
 app.register_blueprint(remoteControl.remoteControl.remoteControl, url_prefix="/rc")
 socketio.on_namespace(remoteControl.remoteControl.Socketio('/rc'))
 

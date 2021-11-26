@@ -41,13 +41,19 @@
                 display: flex;
                 justify-content: space-around;
                 flex-flow: row nowrap;
-            }
-            #textoutput #textinput {
-                background-color: {{light}};
-                widht: 45%;
+                width: 90%;
                 height: 80%;
+            }
+            #textoutput, #textinput {
+                background-color: #00ffff;
+                width: 48%;
+                height: 100%;
                 word-wrap: break-word;
-                align: justify; 
+                text-align: justify;
+            }
+            .headline {
+                background-color: blue;
+                width: 100%;
             }
 		</style>
 	</head>
@@ -59,8 +65,7 @@
 		var socket = io.connect('/bettersentense');
 
 		socket.on('connect', function() {
-				}
-			}
+            return;
 		});
 		
 		socket.on('progress', function(progess, max, curlang, text) {
@@ -82,10 +87,14 @@
 		</div>
 		<div id="textio">
             <div id="textinput" contentEditable="true">
-                Die ist ein Testtext, er erfüllt keinerlei Zweck, jedoch wir hier eines Tages ein Text mit Sinn stehen, so hoffe ich jedefalls.
+                <div class="headline">
+                    <strong>Text Input</strong>
+                </div>
             </div>
             <div id="textoutput">
-                Hier könnte ihr output stehen.
+                <div class="headline">
+                    <strong>Text Output</strong>
+                </div>
             </div>
 		</div>
 	</body>
