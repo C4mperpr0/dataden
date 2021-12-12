@@ -1,16 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="a46347b8-0597-442d-a351-0ea80cc614f2" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/accounts/login.py" beforeDir="false" afterPath="$PROJECT_DIR$/accounts/login.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bettersentense/bettersentense.py" beforeDir="false" afterPath="$PROJECT_DIR$/bettersentense/bettersentense.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bettersentense/templates/bettersentense.html" beforeDir="false" afterPath="$PROJECT_DIR$/bettersentense/templates/bettersentense.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dataden.sqlite" beforeDir="false" afterPath="$PROJECT_DIR$/dataden.sqlite" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flask_session/2029240f6d1128be89ddc32729463129" beforeDir="false" afterPath="$PROJECT_DIR$/flask_session/2029240f6d1128be89ddc32729463129" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flask_session/7c8b01ea042cdfc03010da6b44c9e4d8" beforeDir="false" afterPath="$PROJECT_DIR$/flask_session/7c8b01ea042cdfc03010da6b44c9e4d8" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server.py" beforeDir="false" afterPath="$PROJECT_DIR$/server.py" afterDir="false" />
-    </list>
+    <list default="true" id="a46347b8-0597-442d-a351-0ea80cc614f2" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />

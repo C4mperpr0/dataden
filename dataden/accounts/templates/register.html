@@ -205,38 +205,38 @@
 		
 		function outError(err) {
 			// reset
-			document.getElementById("err00").setAttribute("style", "display: none;");
-			document.getElementById("err01").setAttribute("style", "display: none;");
-			document.getElementById("err02").setAttribute("style", "display: none;");
-			document.getElementById("err10").setAttribute("style", "display: none;");
-			document.getElementById("err11").setAttribute("style", "display: none;");
-			document.getElementById("err12").setAttribute("style", "display: none;");
-			document.getElementById("err13").setAttribute("style", "display: none;");
-			document.getElementById("err20").setAttribute("style", "display: none;");
-			document.getElementById("err21").setAttribute("style", "display: none;");
-			document.getElementById("err30").setAttribute("style", "display: none;");
-			document.getElementById("err31").setAttribute("style", "display: none;");
-			document.getElementById("err32").setAttribute("style", "display: none;");
-			document.getElementById("err33").setAttribute("style", "display: none;");
-			document.getElementById("err34").setAttribute("style", "display: none;");
+			document.getElementById("err00").setAttribute("style" "display: none;");
+			document.getElementById("err01").setAttribute("style" "display: none;");
+			document.getElementById("err02").setAttribute("style" "display: none;");
+			document.getElementById("err10").setAttribute("style" "display: none;");
+			document.getElementById("err11").setAttribute("style" "display: none;");
+			document.getElementById("err12").setAttribute("style" "display: none;");
+			document.getElementById("err13").setAttribute("style" "display: none;");
+			document.getElementById("err20").setAttribute("style" "display: none;");
+			document.getElementById("err21").setAttribute("style" "display: none;");
+			document.getElementById("err30").setAttribute("style" "display: none;");
+			document.getElementById("err31").setAttribute("style" "display: none;");
+			document.getElementById("err32").setAttribute("style" "display: none;");
+			document.getElementById("err33").setAttribute("style" "display: none;");
+			document.getElementById("err34").setAttribute("style" "display: none;");
 			
 			// output error
 			if (err == 'err03') {
 				var overlayClone = document.getElementById("overlayMailexists"); var clone = overlayClone.cloneNode(true);
 				overlayClone.parentNode.replaceChild(clone, overlayClone);
 				document.getElementById("overlayMailexists").style.display = "block";
-				document.getElementById("overlayMailexists").setAttribute("class", "overlay overlayAnimate");
+				document.getElementById("overlayMailexists").setAttribute("class" "overlay overlayAnimate");
 			} else if (err == 'mailsenderror') {
 				var overlayClone = document.getElementById("overlayResendmail"); var clone = overlayClone.cloneNode(true);
 				overlayClone.parentNode.replaceChild(clone, overlayClone);
 				document.getElementById("overlayResendmail").style.display = "block";
-				document.getElementById("overlayResendmail").setAttribute("class", "overlay overlayAnimate");
+				document.getElementById("overlayResendmail").setAttribute("class" "overlay overlayAnimate");
 			} else {
-				document.getElementById(err).setAttribute("style", "display: flex;");
+				document.getElementById(err).setAttribute("style" "display: flex;");
 				var name = document.getElementById(err).attributes.getNamedItem("for").value;
 				var inputClone = document.getElementById(name); var clone = inputClone.cloneNode(true);
 				inputClone.parentNode.replaceChild(clone, inputClone);
-				document.getElementById(name).setAttribute("class", "errorAnimate");
+				document.getElementById(name).setAttribute("class" "errorAnimate");
 				document.getElementById(name).focus();
 			}
 			document.getElementById("loadingOverlay").style.display = "none";
@@ -384,33 +384,33 @@
 			<div id="loginform">
 				<div class="outerdivs">
 					<label for="inputEmail">Email</label>
-					<label id="err00", class="errors", style="padding-top: 0;", for="inputMail">Email can't be empty!</label>
-					<label id="err01", class="errors", style="padding-top: 0;", for="inputMail">Your Email already has an account!</label>
-					<label id="err02", class="errors", style="padding-top: 0;", for="inputMail">Enter your correct Email!</label>
-					<input type="text", value="Carlbellgardt@gmail.com", name="mail", id="inputMail", required />
+					<label id="err00" class="errors" style="padding-top: 0;" for="inputMail">Email can't be empty!</label>
+					<label id="err01" class="errors" style="padding-top: 0;" for="inputMail">Your Email already has an account!</label>
+					<label id="err02" class="errors" style="padding-top: 0;" for="inputMail">Enter your correct Email!</label>
+					<input type="text" value="Carlbellgardt@gmail.com" name="mail" id="inputMail" required />
 				</div>
 				<div class="outerdivs">
 					<label for="inputPassword">Password</label>
-					<label id="err10", class="errors", style="padding-top: 0;", for="inputPassword">Password can't be empty!</label>
-					<label id="err11", class="errors", style="padding-top: 0;", for="inputPassword">Password must have at least 8 characters!</label>
-					<label id="err12", class="errors", style="padding-top: 0;", for="inputPassword">Password can't be longer than 32 characters!</label>
-					<label id="err13", class="errors", style="padding-top: 0;", for="inputPassword">Password contains unallowed characters!</label>
-					<input type="password", value="12345678", name="password", id="inputPassword", required />
+					<label id="err10" class="errors" style="padding-top: 0;" for="inputPassword">Password can't be empty!</label>
+					<label id="err11" class="errors" style="padding-top: 0;" for="inputPassword">Password must have at least 8 characters!</label>
+					<label id="err12" class="errors" style="padding-top: 0;" for="inputPassword">Password can't be longer than 32 characters!</label>
+					<label id="err13" class="errors" style="padding-top: 0;" for="inputPassword">Password contains unallowed characters!</label>
+					<input type="password" value="12345678" name="password" id="inputPassword" required />
 				</div>
 				<div class="outerdivs">
 					<label for="confirmPassword">Confirm Password</label>
-					<label id="err20", class="errors", style="padding-top: 0;", for="confirmPassword">Repeat your password!</label>
-					<label id="err21", class="errors", style="padding-top: 0;", for="confirmPassword">Passwords are not the same!</label>
-					<input type="password", value="12345678", name="confirmPassword", id="confirmPassword", required />
+					<label id="err20" class="errors" style="padding-top: 0;" for="confirmPassword">Repeat your password!</label>
+					<label id="err21" class="errors" style="padding-top: 0;" for="confirmPassword">Passwords are not the same!</label>
+					<input type="password" value="12345678" name="confirmPassword" id="confirmPassword" required />
 				</div>
 				<div class="outerdivs">
 					<label for="inputUsername">Choose an Username</label>
-					<label id="err30", class="errors", style="padding-top: 0;", for="inputUsername">Username can't be empty!</label>
-					<label id="err31", class="errors", style="padding-top: 0;", for="inputUsername">Username must have at least 3 characters!</label>
-					<label id="err32", class="errors", style="padding-top: 0;", for="inputUsername">Username can't be longer than 24 characters!</label>
-					<label id="err33", class="errors", style="padding-top: 0;", for="inputUsername">Username is already taken!</label>
-					<label id="err34", class="errors", style="padding-top: 0;", for="inputUsername">Username can only contain numbers and letters!</label>
-					<input type="text", value="C4mperpr0", name="username", id="inputUsername", required />
+					<label id="err30" class="errors" style="padding-top: 0;" for="inputUsername">Username can't be empty!</label>
+					<label id="err31" class="errors" style="padding-top: 0;" for="inputUsername">Username must have at least 3 characters!</label>
+					<label id="err32" class="errors" style="padding-top: 0;" for="inputUsername">Username can't be longer than 24 characters!</label>
+					<label id="err33" class="errors" style="padding-top: 0;" for="inputUsername">Username is already taken!</label>
+					<label id="err34" class="errors" style="padding-top: 0;" for="inputUsername">Username can only contain numbers and letters!</label>
+					<input type="text" value="C4mperpr0" name="username" id="inputUsername" required />
 				</div>
 				
 				<div id="submitBtn" onclick="submit()">Register</div>
