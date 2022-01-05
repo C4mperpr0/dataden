@@ -12,6 +12,7 @@ import database
 import accounts
 import fileupload
 import chatsystem
+import color_of_the_day
 import sergalmerp
 import remoteControl
 
@@ -43,6 +44,7 @@ app.register_blueprint(accounts.verify.verify, url_prefix="/verify")
 app.register_blueprint(fileupload.fileupload.fileupload, url_prefix="/fileupload")
 app.register_blueprint(chatsystem.chat.chat, url_prefix="/chat")
 socketio.on_namespace(chatsystem.chat.Socketio('/chat'))
+app.register_blueprint(color_of_the_day.color_of_the_day.color_of_the_day, url_prefix="/color_of_the_day")
 app.register_blueprint(sergalmerp.sergalmerp.sergalmerp, url_prefix="/sergalmerp")
 socketio.on_namespace(sergalmerp.sergalmerp.Socketio('/sergalmerp'))
 app.register_blueprint(bettersentense.bettersentense.bettersentense, url_prefix="/bettersentense")

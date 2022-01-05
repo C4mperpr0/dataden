@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset='utf-8'>
+		<title>Color of the day</title>
+		
+		<style>
+			html, body {
+				font-family: 'Trebuchet MS', sans-serif;
+				color: {{color_font}};
+				height: 100%;
+				margin: 0;
+				user-select: none;				
+			}
+			body {
+				font-family: 'Trebuchet MS', sans-serif;
+				background-color: {{color}};
+				display: flex;
+				justify-content: space-around;
+				align-items: center;
+				flex-wrap: wrap;
+				width: 100%;
+			}
+        </style>
+
+        </head>
+	<body>
+            <h1>The color of the day is </h1>
+            <h1 style="user-select: text"> {{color}} </h1>
+            <h1> Have fun!</h1>
+            <break>
+            <h1>Voting system coming soon!</h1>
+	</body>
+</html>
