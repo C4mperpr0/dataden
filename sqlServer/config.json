@@ -1,6 +1,0 @@
-{
-    "shared_password": "1234",
-    "database": "database.db",
-    "server_port": 2110,
-    "logging_level": "debug"
-}
