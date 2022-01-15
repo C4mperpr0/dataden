@@ -15,6 +15,7 @@ with open('./templateColors.json', 'r') as file:
 
 fileupload = Blueprint("fileupload", __name__, static_folder="static", template_folder="templates")
 
+
 #ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'}
 def allowed_file(filename):
     """
@@ -24,6 +25,8 @@ def allowed_file(filename):
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
     """
     return True
+
+
 @fileupload.route('/', methods=['GET', 'POST'])
 def fileupload_():
     if 'user_id' not in session.keys():
@@ -45,9 +48,10 @@ def fileupload_():
             filename = secure_filename(file.filename)
             file.save(os.path.join(Serverconfig.get('fileuploadpath'), filename))
             return redirect(url_for("fileupload.fileupload_"))
-    #return f'<!doctype html><title>Upload new File</title><h1>Upload new File</h1><form method=post enctype=multipart/form-data><input type=file name=file><input type=submit value=Upload></form><a href="{url_for("fileupload.list")}">List of Files</a>'
+    return f'<!doctype html><title>Upload new File</title><h1>Upload new File</h1><form method=post enctype=multipart/form-data><input type=file name=file><input type=submit value=Upload></form><a href="{url_for("fileupload.list")}">List of Files</a>'
     return render_template('fileupload.html',
                            **colorThemes['default'])
+
 
 @fileupload.route('/list', methods=['GET', 'POST'])
 def list():
@@ -60,6 +64,7 @@ def list():
             print(href)
             stuff += f'<a href="{href}">{file}</a><br>'
         return f'<!doctype html><title>List of Files</title><a href="{url_for("fileupload.fileupload_")}">Upload files</a><hr><br>{stuff}'
+
 
 @fileupload.route('/download/<path:filename>', methods=['GET', 'POST'])
 def download(filename):
